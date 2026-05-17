@@ -1,7 +1,5 @@
 { self, inputs, ... }: {
   flake.nixosModules.niri = { pkgs, lib, ... }: {
-    # Enables PAM setup, environment variables, and the niri session entry.
-    # We override the package with our wrapped version.
     programs.niri = {
       enable = true;
       package = self.packages.${pkgs.stdenv.hostPlatform.system}.myNiri;
@@ -14,15 +12,13 @@
       settings = {
         spawn-at-startup = [
           (lib.getExe self'.packages.myNoctalia)
-          # xwayland-satellite starts X11 compatibility layer;
-          # niri will use this path when launching it
         ];
 
         xwayland-satellite.path = lib.getExe pkgs.xwayland-satellite;
 
         input.keyboard.xkb = {
-          layout = "us,ua";
-          options = "grp:alt_shift_toggle,caps:escape";
+          layout = "us";
+          options = "caps:escape";
         };
 
         layout.gaps = 5;
