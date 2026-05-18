@@ -12,6 +12,8 @@
       self.nixosModules.yazi
       self.nixosModules.neovim
       self.nixosModules.mpv
+      self.nixosModules.tailscale
+      self.nixosModules.webapps
     ];
 
     boot.loader.systemd-boot.enable      = true;

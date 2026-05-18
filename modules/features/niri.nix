@@ -102,6 +102,19 @@
           "XF86AudioRaiseVolume".spawn-sh = "wpctl set-volume -l 1.4 @DEFAULT_AUDIO_SINK@ 5%+";
           "XF86AudioLowerVolume".spawn-sh = "wpctl set-volume -l 1.4 @DEFAULT_AUDIO_SINK@ 5%-";
           "XF86AudioMute".spawn-sh        = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
+
+	  # Webapp launcher
+          "Mod+Shift+D".spawn = lib.getExe self'.packages.myWebapps;
+
+          # Screenshots
+          "Print".spawn-sh =
+	    ''${lib.getExe pkgs.grim} -l 0 - | ${pkgs.wl-clipboard}/bin/wl-copy'';
+
+          "Mod+Shift+S".spawn-sh =
+            ''${lib.getExe pkgs.grim} -g "$(${lib.getExe pkgs.slurp} -w 0)" - | ${pkgs.wl-clipboard}/bin/wl-copy'';
+
+          "Mod+Shift+E".spawn-sh =
+            ''${pkgs.wl-clipboard}/bin/wl-paste | ${lib.getExe pkgs.swappy} -f -'';
         };
       };
     };
