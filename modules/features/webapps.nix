@@ -34,9 +34,28 @@
           {
             key  = "j";
             desc = "Jellyfin";
-            # Replace JELLYFIN_URL with your Tailscale IP:port after running tailscale up
             cmd  = "${lib.getExe pkgs.ungoogled-chromium} --app=http://100.113.42.117:8096";
           }
+	  {
+	    key  = "k";
+	    desc = "Kavita";
+	    cmd  = "${lib.getExe pkgs.ungoogled-chromium} --app=http://100.113.42.117:5000";
+	  }
+	  {
+	    key  = "q";
+	    desc = "qBittorrent";
+	    cmd  = "${lib.getExe pkgs.ungoogled-chromium} --app=http://100.113.42.117:8081";
+	  }
+	  {
+	    key  = "s";
+	    desc = "Shoko";
+	    cmd  = "${lib.getExe pkgs.ungoogled-chromium} --app=http://100.113.42.117:8111";
+	  }
+	  {
+	    key  = "p";
+	    desc = "Pi-hole";
+	    cmd  = "${lib.getExe pkgs.ungoogled-chromium} --app=http://100.113.42.117:8080/admin";
+	  }
           {
             key  = "f";
             desc = "Firefox";
