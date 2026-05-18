@@ -14,8 +14,10 @@
             installation_mode = "force_installed";
             install_url = "https://addons.mozilla.org/firefox/downloads/latest/darkreader/latest.xpi";
           };
-          # Unhook: install manually from addons.mozilla.org/en-US/firefox/addon/unhook-youtube/
-          # then get its ID from about:debugging#/runtime/this-firefox and add it here.
+          "myallychou@gmail.com" = {
+	    installation_mode = "force_installed";
+	    install_url = "https://addons.mozilla.org/firefox/downloads/latest/unhook-youtube/latest.xpi";
+	  };
         };
       };
     };
