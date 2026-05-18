@@ -42,6 +42,7 @@
           # Launch
           "Mod+Return".spawn    = lib.getExe self'.packages.myAlacritty;
           "Mod+D".spawn         = lib.getExe self'.packages.myFuzzel;
+          "Mod+E".spawn-sh      = "${lib.getExe self'.packages.myAlacritty} -e ${lib.getExe self'.packages.myYazi}";
           "Mod+S".spawn-sh      = "${lib.getExe self'.packages.myNoctalia} ipc call launcher toggle";
 
           # Window management

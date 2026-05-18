@@ -8,13 +8,17 @@
       self.nixosModules.niri
       self.nixosModules.alacritty
       self.nixosModules.fuzzel
+      self.nixosModules.firefox
+      self.nixosModules.yazi
+      self.nixosModules.neovim
+      self.nixosModules.mpv
     ];
 
-    boot.loader.systemd-boot.enable        = true;
-    boot.loader.efi.canTouchEfiVariables   = true;
-    boot.kernelPackages                    = pkgs.linuxPackages_latest;
+    boot.loader.systemd-boot.enable      = true;
+    boot.loader.efi.canTouchEfiVariables = true;
+    boot.kernelPackages                  = pkgs.linuxPackages_latest;
 
-    networking.hostName          = "FAGGOTTRON3000";
+    networking.hostName              = "FAGGOTTRON3000";
     networking.networkmanager.enable = true;
 
     services.greetd = {
@@ -41,33 +45,34 @@
     services.dbus.enable   = true;
 
     services.pipewire = {
-      enable           = true;
-      alsa.enable      = true;
+      enable            = true;
+      alsa.enable       = true;
       alsa.support32Bit = true;
-      pulse.enable     = true;
+      pulse.enable      = true;
     };
 
     xdg.portal = {
-      enable        = true;
-      extraPortals  = [ pkgs.xdg-desktop-portal-gnome ];
+      enable                = true;
+      extraPortals          = [ pkgs.xdg-desktop-portal-gnome ];
       config.common.default = "gnome";
     };
 
-    hardware.graphics.enable        = true;
-    hardware.bluetooth.enable       = true;
-    hardware.bluetooth.powerOnBoot  = true;
+    hardware.graphics.enable       = true;
+    hardware.bluetooth.enable      = true;
+    hardware.bluetooth.powerOnBoot = true;
 
     services.openssh.enable = true;
 
     users.users.nixruuku = {
-      isNormalUser  = true;
-      extraGroups   = [ "wheel" "networkmanager" "video" "audio" ];
+      isNormalUser = true;
+      extraGroups  = [ "wheel" "networkmanager" "video" "audio" ];
     };
 
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
     environment.systemPackages = with pkgs; [
       xwayland-satellite
+      nautilus
     ];
 
     system.stateVersion = "24.11";
