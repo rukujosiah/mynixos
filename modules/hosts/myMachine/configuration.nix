@@ -6,13 +6,15 @@
       self.nixosModules.myMachineHardware
       self.nixosModules.locale
       self.nixosModules.niri
+      self.nixosModules.alacritty
+      self.nixosModules.fuzzel
     ];
 
-    boot.loader.systemd-boot.enable = true;
-    boot.loader.efi.canTouchEfiVariables = true;
-    boot.kernelPackages = pkgs.linuxPackages_latest;
+    boot.loader.systemd-boot.enable        = true;
+    boot.loader.efi.canTouchEfiVariables   = true;
+    boot.kernelPackages                    = pkgs.linuxPackages_latest;
 
-    networking.hostName = "FAGGOTTRON3000";
+    networking.hostName          = "FAGGOTTRON3000";
     networking.networkmanager.enable = true;
 
     services.greetd = {
@@ -22,37 +24,44 @@
           "${pkgs.tuigreet}/bin/tuigreet --time --remember --cmd ${lib.getExe myNiri}";
         initial_session = {
           command = lib.getExe myNiri;
-          user = "nixruuku";
+          user    = "nixruuku";
         };
       };
     };
 
+    fonts = {
+      packages = with pkgs; [
+        nerd-fonts.jetbrains-mono
+      ];
+      fontconfig.defaultFonts.monospace = [ "JetBrainsMono Nerd Font" ];
+    };
+
     security.polkit.enable = true;
-    security.rtkit.enable = true;
-    services.dbus.enable = true;
+    security.rtkit.enable  = true;
+    services.dbus.enable   = true;
 
     services.pipewire = {
-      enable = true;
-      alsa.enable = true;
+      enable           = true;
+      alsa.enable      = true;
       alsa.support32Bit = true;
-      pulse.enable = true;
+      pulse.enable     = true;
     };
 
     xdg.portal = {
-      enable = true;
-      extraPortals = [ pkgs.xdg-desktop-portal-gnome ];
+      enable        = true;
+      extraPortals  = [ pkgs.xdg-desktop-portal-gnome ];
       config.common.default = "gnome";
     };
 
-    hardware.graphics.enable = true;
-    hardware.bluetooth.enable = true;
-    hardware.bluetooth.powerOnBoot = true;
+    hardware.graphics.enable        = true;
+    hardware.bluetooth.enable       = true;
+    hardware.bluetooth.powerOnBoot  = true;
 
     services.openssh.enable = true;
 
     users.users.nixruuku = {
-      isNormalUser = true;
-      extraGroups = [ "wheel" "networkmanager" "video" "audio" ];
+      isNormalUser  = true;
+      extraGroups   = [ "wheel" "networkmanager" "video" "audio" ];
     };
 
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
