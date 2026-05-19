@@ -14,6 +14,16 @@
       self.nixosModules.mpv
       self.nixosModules.tailscale
       self.nixosModules.webapps
+      self.nixosModules.gaming
+      self.nixosModules.gamesStorage
+    ];
+
+    nixpkgs.config.allowUnfree = true;
+
+    nixpkgs.overlays = [
+      (_: prev: {
+        openldap = prev.openldap.overrideAttrs (_: { doCheck = false; });
+      })
     ];
 
     boot.loader.systemd-boot.enable      = true;
