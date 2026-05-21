@@ -22,13 +22,32 @@
           mouse."accel-profile" = "flat";
         };
 
-        layout = {
-          gaps = 5;
-          "focus-ring" = {
-            width          = 2;
-            "active-color" = self.theme.base09;
-          };
-        };
+	layout = {
+  	  gaps            = 5;
+  	  # "corner-radius" = 12;
+  	  "focus-ring" = {
+    	    width          = 2;
+    	    "active-color" = self.theme.base09;
+  	  };
+	};
+
+        window-rules = [
+  	  {
+    	    matches = [ { "app-id" = "org.gnome.Nautilus"; } ];
+    	    "open-floating" = true;
+  	  }
+	  {
+	    matches = [
+	      { "app-id" = "pavucontrol"; }
+	      { "app-id" = "org.pulseaudio.pavucontrol"; }
+	    ];
+	    "open-floating" = true;
+	  }
+	  {
+	    matches = [ { "app-id" = "firefox"; title = "Picture-in-Picture"; } ];
+	    "open-floating" = true;
+	  }
+	];
 
         spawn-at-startup = [
           (lib.getExe self'.packages.myNoctalia)
@@ -40,20 +59,22 @@
 
         binds = {
           # Launch
-          "Mod+Return".spawn    = lib.getExe self'.packages.myAlacritty;
-          "Mod+D".spawn         = lib.getExe self'.packages.myFuzzel;
-          "Mod+E".spawn-sh      = "${lib.getExe self'.packages.myAlacritty} -e ${lib.getExe self'.packages.myYazi}";
-          "Mod+S".spawn-sh      = "${lib.getExe self'.packages.myNoctalia} ipc call launcher toggle";
+          "Mod+Return".spawn = lib.getExe self'.packages.myAlacritty;
+          "Mod+D".spawn      = lib.getExe self'.packages.myFuzzel;
+          "Mod+E".spawn-sh   = "${lib.getExe self'.packages.myAlacritty} -e ${lib.getExe self'.packages.myYazi}";
+          "Mod+S".spawn-sh   = "${lib.getExe self'.packages.myNoctalia} ipc call launcher toggle";
+          "Mod+Ctrl+V".spawn = lib.getExe pkgs.pavucontrol;
 
           # Window management
-          "Mod+W".close-window     = _: {};
-          "Mod+F".maximize-column  = _: {};
+          "Mod+W".close-window            = _: {};
+          "Mod+F".maximize-column         = _: {};
           "Mod+Shift+F".fullscreen-window = _: {};
+          "Mod+Ctrl+Q".spawn-sh           = "${pkgs.niri}/bin/niri msg action quit --skip-confirmation";
 
           # Focus — within column
-          "Mod+J".focus-window-down = _: {};
-          "Mod+K".focus-window-up   = _: {};
-          "Mod+Up".focus-window-up  = _: {};
+          "Mod+J".focus-window-down    = _: {};
+          "Mod+K".focus-window-up      = _: {};
+          "Mod+Up".focus-window-up     = _: {};
           "Mod+Down".focus-window-down = _: {};
 
           # Focus — between columns
@@ -67,10 +88,10 @@
           "Mod+Shift+Down".move-window-down   = _: {};
 
           # Resize
-          "Mod+Ctrl+Left".set-column-width   = "-5%";
-          "Mod+Ctrl+Right".set-column-width  = "+5%";
-          "Mod+Ctrl+Up".set-window-height    = "-5%";
-          "Mod+Ctrl+Down".set-window-height  = "+5%";
+          "Mod+Ctrl+Left".set-column-width  = "-5%";
+          "Mod+Ctrl+Right".set-column-width = "+5%";
+          "Mod+Ctrl+Up".set-window-height   = "-5%";
+          "Mod+Ctrl+Down".set-window-height = "+5%";
 
           # Workspaces — focus
           "Mod+1".focus-workspace = 1;
@@ -95,26 +116,24 @@
           "Mod+Shift+9".move-column-to-workspace = 9;
 
           # Workspaces — cycle
-          "Mod+Tab".focus-workspace-down       = _: {};
-          "Mod+Shift+Tab".focus-workspace-up   = _: {};
+          "Mod+Tab".focus-workspace-down     = _: {};
+          "Mod+Shift+Tab".focus-workspace-up = _: {};
+
+          # Webapp launcher
+          "Mod+Shift+D".spawn = lib.getExe self'.packages.myWebapps;
+
+          # Screenshots
+          "Print".spawn-sh =
+            ''${lib.getExe pkgs.grim} -l 0 - | ${pkgs.wl-clipboard}/bin/wl-copy'';
+          "Mod+Shift+S".spawn-sh =
+            ''${lib.getExe pkgs.grim} -g "$(${lib.getExe pkgs.slurp} -w 0)" - | ${pkgs.wl-clipboard}/bin/wl-copy'';
+          "Mod+Shift+E".spawn-sh =
+            ''${pkgs.wl-clipboard}/bin/wl-paste | ${lib.getExe pkgs.swappy} -f -'';
 
           # Audio
           "XF86AudioRaiseVolume".spawn-sh = "wpctl set-volume -l 1.4 @DEFAULT_AUDIO_SINK@ 5%+";
           "XF86AudioLowerVolume".spawn-sh = "wpctl set-volume -l 1.4 @DEFAULT_AUDIO_SINK@ 5%-";
           "XF86AudioMute".spawn-sh        = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
-
-	  # Webapp launcher
-          "Mod+Shift+D".spawn = lib.getExe self'.packages.myWebapps;
-
-          # Screenshots
-          "Print".spawn-sh =
-	    ''${lib.getExe pkgs.grim} -l 0 - | ${pkgs.wl-clipboard}/bin/wl-copy'';
-
-          "Mod+Shift+S".spawn-sh =
-            ''${lib.getExe pkgs.grim} -g "$(${lib.getExe pkgs.slurp} -w 0)" - | ${pkgs.wl-clipboard}/bin/wl-copy'';
-
-          "Mod+Shift+E".spawn-sh =
-            ''${pkgs.wl-clipboard}/bin/wl-paste | ${lib.getExe pkgs.swappy} -f -'';
         };
       };
     };

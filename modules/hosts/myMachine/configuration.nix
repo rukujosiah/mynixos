@@ -85,6 +85,9 @@
     environment.systemPackages = with pkgs; [
       xwayland-satellite
       nautilus
+      pavucontrol
+      nixd
+      lua-language-server
     ];
 
     system.stateVersion = "24.11";
