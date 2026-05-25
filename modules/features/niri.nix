@@ -22,20 +22,19 @@
           mouse."accel-profile" = "flat";
         };
 
-	layout = {
-  	  gaps            = 5;
-  	  # "corner-radius" = 12;
-  	  "focus-ring" = {
-    	    width          = 2;
-    	    "active-color" = self.theme.base09;
-  	  };
-	};
+        layout = {
+          gaps = 5;
+          "focus-ring" = {
+            width          = 2;
+            "active-color" = self.theme.base09;
+          };
+        };
 
         window-rules = [
-  	  {
-    	    matches = [ { "app-id" = "org.gnome.Nautilus"; } ];
-    	    "open-floating" = true;
-  	  }
+	  {
+	    matches = [ { "app-id" = "org.gnome.Nautilus"; } ];
+	    "open-floating" = true;
+	  }
 	  {
 	    matches = [
 	      { "app-id" = "pavucontrol"; }
@@ -46,6 +45,18 @@
 	  {
 	    matches = [ { "app-id" = "firefox"; title = "Picture-in-Picture"; } ];
 	    "open-floating" = true;
+	  }
+	  {
+	    matches = [ { "app-id" = "^Alacritty$"; } ];
+	    # "geometry-corner-radius" = 8.0;
+	    "background-effect"."blur" = true;
+	  }
+	];
+
+	layer-rules = [
+	  {
+	    matches = [ { namespace = "^launcher$"; } ];   # fuzzel's default namespace
+	    "background-effect"."blur" = true;
 	  }
 	];
 
@@ -69,19 +80,18 @@
           "Mod+W".close-window            = _: {};
           "Mod+F".maximize-column         = _: {};
           "Mod+Shift+F".fullscreen-window = _: {};
+          "Mod+O".toggle-overview         = _: {};
           "Mod+Ctrl+Q".spawn-sh           = "${pkgs.niri}/bin/niri msg action quit --skip-confirmation";
 
-          # Focus — within column
+          # Focus
           "Mod+J".focus-window-down    = _: {};
           "Mod+K".focus-window-up      = _: {};
           "Mod+Up".focus-window-up     = _: {};
           "Mod+Down".focus-window-down = _: {};
-
-          # Focus — between columns
           "Mod+Left".focus-column-left   = _: {};
           "Mod+Right".focus-column-right = _: {};
 
-          # Move windows
+          # Move
           "Mod+Shift+Left".move-column-left   = _: {};
           "Mod+Shift+Right".move-column-right = _: {};
           "Mod+Shift+Up".move-window-up       = _: {};
@@ -104,7 +114,7 @@
           "Mod+8".focus-workspace = 8;
           "Mod+9".focus-workspace = 9;
 
-          # Workspaces — move window
+          # Workspaces — move
           "Mod+Shift+1".move-column-to-workspace = 1;
           "Mod+Shift+2".move-column-to-workspace = 2;
           "Mod+Shift+3".move-column-to-workspace = 3;
@@ -134,6 +144,10 @@
           "XF86AudioRaiseVolume".spawn-sh = "wpctl set-volume -l 1.4 @DEFAULT_AUDIO_SINK@ 5%+";
           "XF86AudioLowerVolume".spawn-sh = "wpctl set-volume -l 1.4 @DEFAULT_AUDIO_SINK@ 5%-";
           "XF86AudioMute".spawn-sh        = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
+
+          # Brightness
+          "XF86MonBrightnessUp".spawn-sh   = "${lib.getExe pkgs.brightnessctl} set 5%+";
+          "XF86MonBrightnessDown".spawn-sh = "${lib.getExe pkgs.brightnessctl} set 5%-";
         };
       };
     };

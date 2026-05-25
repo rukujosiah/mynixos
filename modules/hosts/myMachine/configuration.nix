@@ -51,8 +51,8 @@
 
     xdg.portal = {
       enable       = true;
-      extraPortals = [ pkgs.xdg-desktop-portal-gnome ];
-      config.common.default = "gnome";
+      extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+      config.common.default = "*";
     };
 
     hardware.graphics.enable        = true;
@@ -95,6 +95,10 @@
       pavucontrol
       nixd
       lua-language-server
+      brightnessctl
+
+      eza fd fzf zoxide dust ripgrep lazygit
+      btop htop imagemagick imv ffmpeg-full yt-dlp
     ];
 
     system.stateVersion = "24.11";

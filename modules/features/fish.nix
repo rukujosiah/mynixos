@@ -1,13 +1,15 @@
 { self, inputs, ... }: {
   flake.nixosModules.fish = { pkgs, lib, ... }: {
-    programs.fish.enable    = true;
-    programs.direnv.enable  = true;
-    programs.direnv.nix-direnv.enable = true;
-    environment.shells      = [
-      self.packages.${pkgs.stdenv.hostPlatform.system}.myEnvironment
+    programs.fish.enable = true;
+    programs.direnv = {
+      enable            = true;
+      nix-direnv.enable = true;
+    };
+    environment.shells = [
+      self.packages.${pkgs.stdenv.hostPlatform.system}.myFish
     ];
     users.users.nixruuku.shell =
-      self.packages.${pkgs.stdenv.hostPlatform.system}.myEnvironment;
+      self.packages.${pkgs.stdenv.hostPlatform.system}.myFish;
   };
 
   perSystem = { pkgs, lib, self', ... }: {
@@ -43,17 +45,6 @@
           direnv hook fish | source
         end
       '';
-    };
-
-    packages.myEnvironment = inputs.wrapper-modules.lib.wrapPackage {
-      inherit pkgs;
-      package       = self'.packages.myFish;
-      extraPackages = with pkgs; [
-        eza fd fzf zoxide dust ripgrep lazygit
-        btop htop imagemagick imv ffmpeg-full yt-dlp
-      ];
-      env.EDITOR = lib.getExe self'.packages.myNeovim;
-      passthru.shellPath = "/bin/fish";
     };
   };
 }
