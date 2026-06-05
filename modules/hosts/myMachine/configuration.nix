@@ -1,11 +1,16 @@
 { self, inputs, ... }: {
+  flake.nixosConfigurations.myMachine = inputs.nixpkgs.lib.nixosSystem {
+    modules = [ self.nixosModules.myMachineConfiguration ];
+  };
+
   flake.nixosModules.myMachineConfiguration = { pkgs, lib, ... }: {
     imports = [
       self.nixosModules.myMachineHardware
       self.nixosModules.locale
-      self.nixosModules.gtk          # phase 6
-      self.nixosModules.fish         # phase 7
-      self.nixosModules.git          # phase 8
+      self.nixosModules.environment
+      self.nixosModules.gtk
+      self.nixosModules.fish
+      self.nixosModules.git
       self.nixosModules.niri
       self.nixosModules.alacritty
       self.nixosModules.fuzzel
@@ -17,13 +22,14 @@
       self.nixosModules.webapps
       self.nixosModules.gaming
       self.nixosModules.gamesStorage
+      self.nixosModules.environment
     ];
 
-    boot.loader.systemd-boot.enable    = true;
+    boot.loader.systemd-boot.enable      = true;
     boot.loader.efi.canTouchEfiVariables = true;
     boot.kernelPackages = pkgs.linuxPackages_latest;
 
-    networking.hostName = "FAGGOTTRON3000";
+    networking.hostName          = "FAGGOTTRON3000";
     networking.networkmanager.enable = true;
 
     services.greetd = {
@@ -52,36 +58,32 @@
     xdg.portal = {
       enable       = true;
       extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-      config.common.default = "*";
+      config = {
+        common.default = [ "gtk" ];
+        niri.default   = [ "gtk" ];
+      };
     };
 
-    hardware.graphics.enable        = true;
-    hardware.bluetooth.enable       = true;
-    hardware.bluetooth.powerOnBoot  = true;
+    hardware.graphics.enable       = true;
+    hardware.bluetooth.enable      = true;
+    hardware.bluetooth.powerOnBoot = true;
 
     services.openssh.enable = true;
 
     users.users.nixruuku = {
       isNormalUser = true;
       extraGroups  = [ "wheel" "networkmanager" "video" "audio" ];
-      # shell is set by modules/features/fish.nix
     };
 
-    nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
-    nixpkgs.config.allowUnfree = true;
+    # nix.settings.experimental-features = [ "nix-command" "flakes" ];
+    # nixpkgs.config.allowUnfree = true;
     nixpkgs.overlays = [
-      (_: prev: {
-        openldap = prev.openldap.overrideAttrs (_: { doCheck = false; });
-      })
+      (_: prev: { openldap = prev.openldap.overrideAttrs (_: { doCheck = false; }); })
     ];
 
     fonts.packages = with pkgs; [
       nerd-fonts.jetbrains-mono
-      ubuntu-sans
-      cm_unicode
-      corefonts
-      unifont
+      ubuntu-sans cm_unicode corefonts unifont
     ];
     fonts.fontconfig.defaultFonts = {
       serif     = [ "Ubuntu Sans" ];
@@ -93,12 +95,6 @@
       xwayland-satellite
       nautilus
       pavucontrol
-      nixd
-      lua-language-server
-      brightnessctl
-
-      eza fd fzf zoxide dust ripgrep lazygit
-      btop htop imagemagick imv ffmpeg-full yt-dlp
     ];
 
     system.stateVersion = "24.11";

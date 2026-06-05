@@ -1,5 +1,5 @@
 { self, inputs, ... }: {
-  flake.nixosModules.fish = { pkgs, lib, ... }: {
+  flake.nixosModules.fish = { pkgs, ... }: {
     programs.fish.enable = true;
     programs.direnv = {
       enable            = true;
@@ -15,12 +15,20 @@
   perSystem = { pkgs, lib, self', ... }: {
     packages.myFish = inputs.wrapper-modules.wrappers.fish.wrap {
       inherit pkgs;
+      runtimePkgs = with pkgs; [
+        eza fd fzf zoxide dust ripgrep
+        btop htop
+        imagemagick imv ffmpeg-full yt-dlp
+        lazygit
+        nixd lua-language-server
+      ];
       shellAliases = {
-        ls = "${pkgs.eza}/bin/eza --icons";
-        ll = "${pkgs.eza}/bin/eza --icons -la";
+        ls = "eza --icons";
+        ll = "eza --icons -la";
       };
       configFile.content = ''
         set fish_greeting
+
         fish_vi_key_bindings
 
         function fish_prompt
@@ -34,7 +42,7 @@
             (set_color normal)  "$ "
         end
 
-        ${pkgs.zoxide}/bin/zoxide init fish | source
+        zoxide init fish | source
 
         function yazi --wraps="yazi" --description="cd on exit"
           set tmp (command ${lib.getExe self'.packages.myYazi} --print-last-dir $argv)

@@ -24,8 +24,9 @@
 
         menu = [
           { key = "b"; desc = "Bluetooth"; cmd = "${lib.getExe self'.packages.myNoctalia} ipc call bluetooth togglePanel"; }
-          { key = "w"; desc = "Wifi";      cmd = "${lib.getExe self'.packages.myNoctalia} ipc call wifi togglePanel"; }
+          # { key = "w"; desc = "Wifi";      cmd = "${lib.getExe self'.packages.myNoctalia} ipc call wifi togglePanel"; }
           { key = "y"; desc = "YouTube";   cmd = "${lib.getExe pkgs.ungoogled-chromium} --app=https://youtube.com"; }
+	  { key = "v"; desc = "VNDB";      cmd = "${lib.getExe pkgs.ungoogled-chromium} --app=https://vndb.org"; }
 	  { key = "d"; desc = "Discord";   cmd = "${lib.getExe pkgs.ungoogled-chromium} --app=https://discord.com/login"; }
           { key = "j"; desc = "Jellyfin";  cmd = "${lib.getExe pkgs.ungoogled-chromium} --app=http://100.113.42.117:8096"; }
           { key = "k"; desc = "Kavita";    cmd = "${lib.getExe pkgs.ungoogled-chromium} --app=http://100.113.42.117:5000"; }
