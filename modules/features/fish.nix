@@ -12,24 +12,25 @@
       self.packages.${pkgs.stdenv.hostPlatform.system}.myFish;
   };
 
-  perSystem = { pkgs, lib, self', ... }: {
+  perSystem = { pkgs, lib, self', ... }:
+  let
+    toolPkgs = with pkgs; [
+      eza fd fzf zoxide dust ripgrep lazygit
+      btop htop imagemagick imv ffmpeg-full yt-dlp
+      nixd lua-language-server
+    ];
+  in {
     packages.myFish = inputs.wrapper-modules.wrappers.fish.wrap {
       inherit pkgs;
-      runtimePkgs = with pkgs; [
-        eza fd fzf zoxide dust ripgrep
-        btop htop
-        imagemagick imv ffmpeg-full yt-dlp
-        lazygit
-        nixd lua-language-server
-      ];
       shellAliases = {
         ls = "eza --icons";
         ll = "eza --icons -la";
       };
       configFile.content = ''
         set fish_greeting
-
         fish_vi_key_bindings
+
+        set -gx PATH ${lib.concatMapStringsSep " " (p: "${p}/bin") toolPkgs} $PATH
 
         function fish_prompt
           string join "" -- \

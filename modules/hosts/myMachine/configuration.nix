@@ -1,8 +1,4 @@
 { self, inputs, ... }: {
-  flake.nixosConfigurations.myMachine = inputs.nixpkgs.lib.nixosSystem {
-    modules = [ self.nixosModules.myMachineConfiguration ];
-  };
-
   flake.nixosModules.myMachineConfiguration = { pkgs, lib, ... }: {
     imports = [
       self.nixosModules.myMachineHardware
@@ -22,14 +18,13 @@
       self.nixosModules.webapps
       self.nixosModules.gaming
       self.nixosModules.gamesStorage
-      self.nixosModules.environment
     ];
 
     boot.loader.systemd-boot.enable      = true;
     boot.loader.efi.canTouchEfiVariables = true;
     boot.kernelPackages = pkgs.linuxPackages_latest;
 
-    networking.hostName          = "FAGGOTTRON3000";
+    networking.hostName             = "FAGGOTTRON3000";
     networking.networkmanager.enable = true;
 
     services.greetd = {
@@ -60,7 +55,7 @@
       extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
       config = {
         common.default = [ "gtk" ];
-        niri.default   = [ "gtk" ];
+        niri.default   = lib.mkForce [ "gtk" ];
       };
     };
 
@@ -75,8 +70,6 @@
       extraGroups  = [ "wheel" "networkmanager" "video" "audio" ];
     };
 
-    # nix.settings.experimental-features = [ "nix-command" "flakes" ];
-    # nixpkgs.config.allowUnfree = true;
     nixpkgs.overlays = [
       (_: prev: { openldap = prev.openldap.overrideAttrs (_: { doCheck = false; }); })
     ];
