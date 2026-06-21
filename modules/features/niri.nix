@@ -3,6 +3,7 @@
     programs.niri = {
       enable  = true;
       package = self.packages.${pkgs.stdenv.hostPlatform.system}.myNiri;
+      useNautilus = false;
     };
   };
 
@@ -61,6 +62,11 @@
 	];
 
         spawn-at-startup = [
+	  (lib.getExe (pkgs.writeShellScriptBin "import-session-env" ''
+            export XDG_CURRENT_DESKTOP=niri
+            systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP DISPLAY
+            ${pkgs.dbus}/bin/dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP DISPLAY
+          ''))
           (lib.getExe self'.packages.myNoctalia)
           (lib.getExe (pkgs.writeShellScriptBin "wallpaper"
             ''${lib.getExe pkgs.swaybg} -c "${self.theme.base00}"''))

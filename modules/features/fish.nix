@@ -40,7 +40,7 @@
             (set_color blue)    $hostname \
             (set_color magenta) " " (prompt_pwd) \
             (set_color red)     "]" \
-            (set_color normal)  "$ "
+            (set_color normal)  '$ '
         end
 
         zoxide init fish | source
