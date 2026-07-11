@@ -1,3 +1,3 @@
 { ... }: {
-  flake.wallpaper = ./wallpaper/current.png;
+  flake.wallpaper = ./wallpaper/current.jpg;
 }

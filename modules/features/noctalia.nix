@@ -24,6 +24,9 @@
 
       settings = {
         settingsVersion = 32;
+	wallpaper = {
+	  enabled = false;
+	};
 
         bar = {
           position  = "left";
