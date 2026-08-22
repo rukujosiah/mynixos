@@ -4,6 +4,8 @@
       self.nixosModules.myMachineHardware
       self.nixosModules.locale
       self.nixosModules.environment
+      self.nixosModules.chromium
+      self.nixosModules.gimp
       self.nixosModules.gtk
       self.nixosModules.fish
       self.nixosModules.git
@@ -18,6 +20,7 @@
       self.nixosModules.webapps
       self.nixosModules.gaming
       self.nixosModules.gamesStorage
+      self.nixosModules.telegram
     ];
 
     boot.loader.systemd-boot.enable      = true;

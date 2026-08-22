@@ -1,3 +1,3 @@
 { ... }: {
-  flake.wallpaper = ./wallpaper/current.jpg;
+  flake.wallpaper = ./wallpaper/after_school_stroll_gruvbox.png;
 }
