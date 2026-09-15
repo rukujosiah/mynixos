@@ -19,7 +19,6 @@
       self.nixosModules.tailscale
       self.nixosModules.webapps
       self.nixosModules.gaming
-      self.nixosModules.gamesStorage
       self.nixosModules.telegram
     ];
 
@@ -68,6 +67,7 @@
     users.users.nixruuku = {
       isNormalUser = true;
       extraGroups  = [ "wheel" "networkmanager" "video" "audio" ];
+      hashedPasswordFile = "/persistent/passwd";
     };
 
     nixpkgs.overlays = [
