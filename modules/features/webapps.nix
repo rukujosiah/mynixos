@@ -36,7 +36,8 @@
 	  { key = "p"; desc = "Pi-hole";       cmd = "${lib.getExe pkgs.chromium} --app=http://100.113.42.117:8080/admin"; }
 	  { key = "m"; desc = "TradingView";   cmd = "${lib.getExe pkgs.chromium} --app=https://tradingview.com"; }
 	  { key = "e"; desc = "Email";         cmd = "${lib.getExe pkgs.chromium} --app=https://webmail.disroot.org/?_task=login"; }
-	  { key = "a"; desc = "Ava MT5";       cmd = "${lib.getExe pkgs.chromium} --app=https://mt5web-real.ava-mt5.com/terminal"; }
+	  { key = "4"; desc = "4chan";         cmd = "${lib.getExe pkgs.chromium} --app=https://boards.4chan.org"; }
+	  # { key = "a"; desc = "Ava MT5";       cmd = "${lib.getExe pkgs.chromium} --app=https://mt5web-real.ava-mt5.com/terminal"; }
         ];
       };
     };

@@ -6,6 +6,7 @@
       self.nixosModules.diskLayout
       self.nixosModules.impermanence
       self.nixosModules.myMachineConfiguration
+      self.nixosModules.gamesStorage
     ];
   };
 }

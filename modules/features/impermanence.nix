@@ -10,6 +10,7 @@
           "/etc/ssh"
           "/var/lib/bluetooth"
           "/var/lib/NetworkManager"
+	  "/var/lib/tailscale"
           { directory = "/var/lib/nixos"; inInitrd = true; }
         ];
 
@@ -23,11 +24,14 @@
             ".gnupg"
             "mynixos"
             "Downloads"
+	    "Pictures"
             ".config/chromium"
             ".mozilla"
             ".local/share/TelegramDesktop"
             ".local/share/Steam"
             ".local/share/keyrings"
+	    ".cache/umu"
+	    ".local/share/umu"
           ];
         };
       };

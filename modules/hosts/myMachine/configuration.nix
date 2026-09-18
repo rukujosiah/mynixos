@@ -17,6 +17,7 @@
       self.nixosModules.neovim
       self.nixosModules.mpv
       self.nixosModules.tailscale
+      self.nixosModules.ssh
       self.nixosModules.webapps
       self.nixosModules.gaming
       self.nixosModules.telegram
