@@ -21,6 +21,8 @@
       self.nixosModules.webapps
       self.nixosModules.gaming
       self.nixosModules.telegram
+      self.nixosModules.vesktop
+      self.nixosModules.fastfetch
     ];
 
     boot.loader.systemd-boot.enable      = true;

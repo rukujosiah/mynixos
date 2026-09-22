@@ -25,10 +25,11 @@
 
         menu = [
           { key = "b"; desc = "Bluetooth";     cmd = "${lib.getExe self'.packages.myNoctalia} ipc call bluetooth togglePanel"; }
+	  { key = "c"; desc = "Claude";        cmd = "${lib.getExe pkgs.chromium} --app=https://claude.ai/login"; }
           # { key = "w"; desc = "Wifi";        cmd = "${lib.getExe self'.packages.myNoctalia} ipc call wifi togglePanel"; }
           { key = "y"; desc = "YouTube";       cmd = "${lib.getExe pkgs.chromium} --app=https://youtube.com"; }
 	  { key = "v"; desc = "VNDB";          cmd = "${lib.getExe pkgs.chromium} --app=https://vndb.org"; }
-	  { key = "d"; desc = "Discord";       cmd = "${lib.getExe pkgs.chromium} --app=https://discord.com/login"; }
+	  # { key = "d"; desc = "Discord";       cmd = "${lib.getExe pkgs.chromium} --app=https://discord.com/login"; }
           { key = "j"; desc = "Jellyfin";      cmd = "${lib.getExe pkgs.chromium} --app=http://100.113.42.117:8096"; }
           { key = "k"; desc = "Kavita";        cmd = "${lib.getExe pkgs.chromium} --app=http://100.113.42.117:5000"; }
 	  { key = "q"; desc = "qBittorrent";   cmd = "${lib.getExe pkgs.chromium} --app=http://100.113.42.117:8081"; }
@@ -36,7 +37,7 @@
 	  { key = "p"; desc = "Pi-hole";       cmd = "${lib.getExe pkgs.chromium} --app=http://100.113.42.117:8080/admin"; }
 	  { key = "m"; desc = "TradingView";   cmd = "${lib.getExe pkgs.chromium} --app=https://tradingview.com"; }
 	  { key = "e"; desc = "Email";         cmd = "${lib.getExe pkgs.chromium} --app=https://webmail.disroot.org/?_task=login"; }
-	  { key = "4"; desc = "4chan";         cmd = "${lib.getExe pkgs.chromium} --app=https://boards.4chan.org"; }
+	  # { key = "b"; desc = "/biz/";         cmd = "${lib.getExe pkgs.chromium} --app=https://boards.4chan.org/biz"; }
 	  # { key = "a"; desc = "Ava MT5";       cmd = "${lib.getExe pkgs.chromium} --app=https://mt5web-real.ava-mt5.com/terminal"; }
         ];
       };

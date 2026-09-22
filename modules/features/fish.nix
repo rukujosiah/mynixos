@@ -16,7 +16,7 @@
   let
     toolPkgs = with pkgs; [
       eza fd fzf zoxide dust ripgrep lazygit
-      btop htop imagemagick imv ffmpeg-full yt-dlp
+      htop imagemagick imv ffmpeg-full yt-dlp
       nixd lua-language-server
     ];
   in {

@@ -4,6 +4,7 @@
       inputs.disko.nixosModules.disko
       inputs.preservation.nixosModules.default
       self.nixosModules.diskLayout
+      self.nixosModules.persistance
       self.nixosModules.impermanence
       self.nixosModules.myMachineConfiguration
       self.nixosModules.gamesStorage

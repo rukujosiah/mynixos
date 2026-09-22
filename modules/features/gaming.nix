@@ -1,32 +1,32 @@
 { ... }: {
-  flake.nixosModules.gaming = { pkgs, ... }: {
-    programs.steam = {
-      enable                  = true;
-      remotePlay.openFirewall = true;
+  flake.nixosModules.gaming = { pkgs, lib, ... }: {
+    hardware.graphics.enable = lib.mkDefault true;
+
+    programs = {
+      gamemode.enable  = true;
+      gamescope.enable = true;
+      steam = {
+        enable              = true;
+        protontricks.enable = true;
+      };
     };
 
-    programs.gamemode.enable = true;
-
-    # 32-bit support required for Steam and Wine
-    hardware.graphics.enable32Bit = true;
-
     environment.systemPackages = with pkgs; [
-      # Launcher
       lutris
-
-      # Wine — 32+64 bit staging build for VN compatibility
-      wineWow64Packages.staging
-      winetricks
-      cabextract  # winetricks dependency for .cab packages
-
-      # Monitoring
       mangohud
     ];
 
-    # CJK fonts for Japanese VN rendering in Wine prefix
-    fonts.packages = with pkgs; [
-      noto-fonts-cjk-sans
-      noto-fonts-cjk-serif
+    nix.settings = {
+      extra-substituters        = [ "https://nix-gaming.cachix.org" ];
+      extra-trusted-public-keys = [
+        "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
+      ];
+    };
+
+    persistance.cache.directories = [
+      ".local/share/Steam"
+      ".config/lutris"
+      ".local/share/lutris"
     ];
   };
 }
