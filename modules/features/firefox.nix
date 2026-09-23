@@ -3,12 +3,12 @@
     programs.firefox = {
       enable = true;
       policies = {
-        DisableTelemetry       = true;
-        DisableFirefoxStudies  = true;
+        DisableTelemetry      = true;
+        DisableFirefoxStudies = true;
       };
     };
 
-    # persistance.data.directories  = [ ".mozilla" ];
-    # persistance.cache.directories = [ ".cache/mozilla" ];
+    persistance.data.directories  = [ ".mozilla" ];
+    persistance.cache.directories = [ ".cache/mozilla" ];
   };
 }

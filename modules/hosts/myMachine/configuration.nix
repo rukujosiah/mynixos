@@ -4,6 +4,7 @@
       self.nixosModules.myMachineHardware
       self.nixosModules.locale
       self.nixosModules.environment
+      self.nixosModules.pipewire
       self.nixosModules.chromium
       self.nixosModules.gimp
       self.nixosModules.gtk
@@ -27,9 +28,9 @@
 
     boot.loader.systemd-boot.enable      = true;
     boot.loader.efi.canTouchEfiVariables = true;
-    boot.kernelPackages = pkgs.linuxPackages_latest;
+    boot.kernelPackages                  = pkgs.linuxPackages_latest;
 
-    networking.hostName             = "FAGGOTTRON3000";
+    networking.hostName              = "FAGGOTTRON3000";
     networking.networkmanager.enable = true;
 
     services.greetd = {
@@ -45,15 +46,7 @@
     };
 
     security.polkit.enable = true;
-    security.rtkit.enable  = true;
     services.dbus.enable   = true;
-
-    services.pipewire = {
-      enable            = true;
-      alsa.enable       = true;
-      alsa.support32Bit = true;
-      pulse.enable      = true;
-    };
 
     xdg.portal = {
       enable       = true;
@@ -65,11 +58,9 @@
     hardware.bluetooth.enable      = true;
     hardware.bluetooth.powerOnBoot = true;
 
-    services.openssh.enable = true;
-
     users.users.nixruuku = {
-      isNormalUser = true;
-      extraGroups  = [ "wheel" "networkmanager" "video" "audio" ];
+      isNormalUser       = true;
+      extraGroups        = [ "wheel" "networkmanager" "video" "audio" ];
       hashedPasswordFile = "/persistent/passwd";
     };
 

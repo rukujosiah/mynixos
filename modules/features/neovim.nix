@@ -3,6 +3,8 @@
     environment.systemPackages = [
       self.packages.${pkgs.stdenv.hostPlatform.system}.myNeovim
     ];
+
+    persistance.cache.directories = [ ".local/share/nvim" ];
   };
 
   perSystem = { pkgs, ... }: {

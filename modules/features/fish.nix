@@ -10,6 +10,12 @@
     ];
     users.users.nixruuku.shell =
       self.packages.${pkgs.stdenv.hostPlatform.system}.myFish;
+
+    persistance.cache.directories = [
+      ".local/share/fish"
+      ".local/share/direnv"
+      ".local/share/zoxide"
+    ];
   };
 
   perSystem = { pkgs, lib, self', ... }:

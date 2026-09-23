@@ -3,6 +3,8 @@
     environment.systemPackages = [
       self.packages.${pkgs.stdenv.hostPlatform.system}.myYazi
     ];
+
+    persistance.cache.directories = [ ".local/share/yazi" ];
   };
 
   perSystem = { pkgs, ... }: {
