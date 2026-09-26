@@ -10,6 +10,7 @@
           "/etc/ssh"
           "/var/lib/bluetooth"
           "/var/lib/NetworkManager"
+          "/var/cache/tailscale"
           { directory = "/var/lib/nixos"; inInitrd = true; }
         ];
         files = [

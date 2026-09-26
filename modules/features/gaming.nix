@@ -1,6 +1,9 @@
 { ... }: {
   flake.nixosModules.gaming = { pkgs, lib, ... }: {
-    hardware.graphics.enable = lib.mkDefault true;
+    hardware.graphics = {
+      enable = lib.mkDefault = true;
+      # enable32Bit = true;
+    };
 
     programs = {
       gamemode.enable  = true;
@@ -14,6 +17,8 @@
     environment.systemPackages = with pkgs; [
       lutris
       mangohud
+      # wineWow64Packages.staging
+      # winetricks
     ];
 
     nix.settings = {

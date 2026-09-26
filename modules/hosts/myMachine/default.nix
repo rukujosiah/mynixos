@@ -7,6 +7,7 @@
       self.nixosModules.persistance
       self.nixosModules.impermanence
       self.nixosModules.myMachineConfiguration
+      self.nixosModules.gamesStorage
     ];
   };
 }
