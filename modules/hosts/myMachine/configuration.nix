@@ -18,6 +18,7 @@
       self.nixosModules.neovim
       self.nixosModules.mpv
       self.nixosModules.tailscale
+      self.nixosModules.samba
       self.nixosModules.ssh
       self.nixosModules.webapps
       self.nixosModules.gaming
@@ -71,6 +72,7 @@
     fonts.packages = with pkgs; [
       nerd-fonts.jetbrains-mono
       ubuntu-sans cm_unicode corefonts unifont
+      noto-fonts-cjk-sans
     ];
     fonts.fontconfig.defaultFonts = {
       serif     = [ "Ubuntu Sans" ];

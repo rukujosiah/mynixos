@@ -31,6 +31,7 @@
           { key = "q"; desc = "qBittorrent"; cmd = "${lib.getExe pkgs.ungoogled-chromium} --app=http://100.113.42.117:8081"; }
           { key = "s"; desc = "Shoko";       cmd = "${lib.getExe pkgs.ungoogled-chromium} --app=http://100.113.42.117:8111"; }
           { key = "p"; desc = "Pi-hole";     cmd = "${lib.getExe pkgs.ungoogled-chromium} --app=http://100.113.42.117:8080/admin"; }
+	  { key = "d"; desc = "JD-2";        cmd = "${lib.getExe pkgs.ungoogled-chromium} --app=http://100.113.42.117:5800"; }
           { key = "m"; desc = "TradingView"; cmd = "${lib.getExe pkgs.ungoogled-chromium} --app=https://tradingview.com"; }
           { key = "e"; desc = "Email";       cmd = "${lib.getExe pkgs.ungoogled-chromium} --app=https://webmail.disroot.org/?_task=login"; }
         ];

@@ -1,7 +1,7 @@
 { ... }: {
   flake.nixosModules.gaming = { pkgs, lib, ... }: {
     hardware.graphics = {
-      enable = lib.mkDefault = true;
+      enable = lib.mkDefault true;
       # enable32Bit = true;
     };
 
