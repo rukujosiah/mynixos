@@ -2,6 +2,8 @@
   flake.nixosModules.impermanence = {
     boot.initrd.systemd.enable = true;
 
+    systemd.services."systemd-machine-id-commit".enable = false;
+
     preservation = {
       enable = true;
 

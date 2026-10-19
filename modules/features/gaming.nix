@@ -11,12 +11,14 @@
       steam = {
         enable              = true;
         protontricks.enable = true;
+	extraCompatPackages = with pkgs; [ dwproton-bin ];
       };
     };
 
     environment.systemPackages = with pkgs; [
       lutris
       mangohud
+      # protonup-qt
       # wineWow64Packages.staging
       # winetricks
     ];

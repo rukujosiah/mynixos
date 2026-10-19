@@ -13,7 +13,7 @@
       self.nixosModules.niri
       self.nixosModules.alacritty
       self.nixosModules.fuzzel
-      self.nixosModules.firefox
+      self.nixosModules.qutebrowser
       self.nixosModules.yazi
       self.nixosModules.neovim
       self.nixosModules.mpv

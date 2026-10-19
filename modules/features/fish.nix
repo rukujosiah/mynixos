@@ -24,6 +24,7 @@
       eza fd fzf zoxide dust ripgrep lazygit
       htop imagemagick imv ffmpeg-full yt-dlp
       nixd lua-language-server
+      aichat
     ];
   in {
     packages.myFish = inputs.wrapper-modules.wrappers.fish.wrap {
