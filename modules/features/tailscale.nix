@@ -1,10 +1,11 @@
-{ ... }: {
-  flake.nixosModules.tailscale = { ... }: {
+{
+  flake.nixosModules.tailscale = {
     services.tailscale.enable = true;
     networking.firewall.trustedInterfaces = [ "tailscale0" ];
 
-    preservation.preserveAt."/persistent".directories = [
-      "/var/lib/tailscale"
+    persistance.system.directories = [
+      "/var/lib/tailscale"   # so that it shuts up about `tailscale up` already
+      "/var/cache/tailscale"
     ];
   };
 }

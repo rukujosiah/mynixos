@@ -1,15 +1,15 @@
 { self, inputs, ... }: {
-  flake.nixosModules.fish = { pkgs, ... }: {
+  flake.nixosModules.fish = { config, pkgs, ... }:
+  let
+    myFish = self.packages.${pkgs.stdenv.hostPlatform.system}.myFish;
+  in {
     programs.fish.enable = true;
     programs.direnv = {
       enable            = true;
       nix-direnv.enable = true;
     };
-    environment.shells = [
-      self.packages.${pkgs.stdenv.hostPlatform.system}.myFish
-    ];
-    users.users.nixruuku.shell =
-      self.packages.${pkgs.stdenv.hostPlatform.system}.myFish;
+    environment.shells = [ myFish ];
+    users.users.${config.preferences.user.name}.shell = myFish;
 
     persistance.cache.directories = [
       ".local/share/fish"
@@ -24,7 +24,6 @@
       eza fd fzf zoxide dust ripgrep lazygit
       htop imagemagick imv ffmpeg-full yt-dlp
       nixd lua-language-server
-      aichat
     ];
   in {
     packages.myFish = inputs.wrapper-modules.wrappers.fish.wrap {

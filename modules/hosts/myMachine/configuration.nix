@@ -1,5 +1,9 @@
-{ self, inputs, ... }: {
-  flake.nixosModules.myMachineConfiguration = { pkgs, lib, ... }: {
+{ self, ... }: {
+  flake.nixosModules.myMachineConfiguration = { config, pkgs, lib, ... }:
+  let
+    user = config.preferences.user.name;
+    niri = lib.getExe self.packages.${pkgs.stdenv.hostPlatform.system}.myNiri;
+  in {
     imports = [
       self.nixosModules.myMachineHardware
       self.nixosModules.locale
@@ -31,6 +35,8 @@
     boot.loader.efi.canTouchEfiVariables = true;
     boot.kernelPackages                  = pkgs.linuxPackages_latest;
 
+    preferences.user.name = "nixruuku";
+
     networking.hostName              = "FAGGOTTRON3000";
     networking.networkmanager.enable = true;
 
@@ -38,10 +44,10 @@
       enable = true;
       settings = {
         default_session.command =
-          "${pkgs.tuigreet}/bin/tuigreet --time --remember --cmd ${lib.getExe self.packages.${pkgs.stdenv.hostPlatform.system}.myNiri}";
+          "${pkgs.tuigreet}/bin/tuigreet --time --remember --cmd ${niri}";
         initial_session = {
-          command = lib.getExe self.packages.${pkgs.stdenv.hostPlatform.system}.myNiri;
-          user    = "nixruuku";
+          command = niri;
+          inherit user;
         };
       };
     };
@@ -59,7 +65,12 @@
     hardware.bluetooth.enable      = true;
     hardware.bluetooth.powerOnBoot = true;
 
-    users.users.nixruuku = {
+    persistance.system.directories = [
+      "/var/lib/bluetooth"
+      "/var/lib/NetworkManager"
+    ];
+
+    users.users.${user} = {
       isNormalUser       = true;
       extraGroups        = [ "wheel" "networkmanager" "video" "audio" ];
       hashedPasswordFile = "/persistent/passwd";

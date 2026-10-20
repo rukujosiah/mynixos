@@ -1,11 +1,9 @@
-{ ... }: {
+{
   flake.nixosModules.samba = { pkgs, ... }: {
     services.gvfs.enable = true;
 
-    # cifs-utils provides mount.cifs for persistent/manual mounts
-    environment.systemPackages = [ pkgs.cifs-utils ];
+    environment.systemPackages = [ pkgs.cifs-utils ]; # provides mount.cifs for persistent/manual mounts
 
-    # preserve gvfs bookmarks and smb credentials cache
-    persistance.data.directories = [ ".local/share/gvfs-metadata" ];
+    persistance.data.directories = [ ".local/share/gvfs-metadata" ]; # gvfs bookmarks and smb credentials cache preservation
   };
 }

@@ -1,4 +1,4 @@
-{ ... }: {
+{
   flake.nixosModules.gtk = { pkgs, lib, ... }: let
     themeName    = "Gruvbox-Green-Dark-Medium";
     themePackage = pkgs.gruvbox-gtk-theme.override {

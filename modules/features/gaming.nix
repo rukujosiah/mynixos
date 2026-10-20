@@ -1,8 +1,7 @@
-{ ... }: {
+{
   flake.nixosModules.gaming = { pkgs, lib, ... }: {
     hardware.graphics = {
       enable = lib.mkDefault true;
-      # enable32Bit = true;
     };
 
     programs = {
@@ -11,16 +10,13 @@
       steam = {
         enable              = true;
         protontricks.enable = true;
-	extraCompatPackages = with pkgs; [ dwproton-bin ];
+        extraCompatPackages = with pkgs; [ dwproton-bin ];
       };
     };
 
     environment.systemPackages = with pkgs; [
       lutris
       mangohud
-      # protonup-qt
-      # wineWow64Packages.staging
-      # winetricks
     ];
 
     nix.settings = {
@@ -30,6 +26,7 @@
       ];
     };
 
+    # custom proton builds like dwproton go in ~/.local/share/Steam/compatibilitytools.d
     persistance.cache.directories = [
       ".local/share/Steam"
       ".config/lutris"

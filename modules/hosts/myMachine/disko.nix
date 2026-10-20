@@ -1,4 +1,4 @@
-{ ... }: {
+{
   flake.nixosModules.diskLayout = {
     fileSystems."/nix".neededForBoot       = true;
     fileSystems."/persistent".neededForBoot = true;

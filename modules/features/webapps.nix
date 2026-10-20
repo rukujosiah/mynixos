@@ -1,11 +1,19 @@
 { self, inputs, ... }: {
-  flake.nixosModules.webapps = { pkgs, lib, ... }: {
+  flake.nixosModules.webapps = { pkgs, ... }: {
     environment.systemPackages = [
       self.packages.${pkgs.stdenv.hostPlatform.system}.myWebapps
     ];
   };
 
-  perSystem = { pkgs, lib, self', ... }: {
+  perSystem = { pkgs, lib, self', ... }:
+  let
+    chromium = lib.getExe pkgs.ungoogled-chromium;
+    noctalia = lib.getExe self'.packages.myNoctalia;
+    home     = "http://100.113.42.117";
+
+    app    = url: "${chromium} --app=${url}";
+    webapp = key: desc: url: { inherit key desc; cmd = app url; };
+  in {
     packages.myWebapps = inputs.wrapper-modules.wrappers.wlr-which-key.wrap {
       inherit pkgs;
       settings = {
@@ -22,20 +30,17 @@
         margin_bottom = 5;
 
         menu = [
-	  { key = "h"; desc = "ChatGPT";     cmd = "${lib.getExe pkgs.ungoogled-chromium} --app=https://chatgpt.com"; }
-          { key = "a"; desc = "Claude";      cmd = "${lib.getExe pkgs.ungoogled-chromium} --app=https://claude.ai/login"; }
-          { key = "e"; desc = "Email";       cmd = "${lib.getExe pkgs.ungoogled-chromium} --app=https://webmail.disroot.org/?_task=login"; }
-          { key = "g"; desc = "Gemini";      cmd = "${lib.getExe pkgs.ungoogled-chromium} --app=https://gemini.google.com/app"; }
-          { key = "d"; desc = "JD-2";        cmd = "${lib.getExe pkgs.ungoogled-chromium} --app=http://100.113.42.117:5800"; }
-          { key = "j"; desc = "Jellyfin";    cmd = "${lib.getExe pkgs.ungoogled-chromium} --app=http://100.113.42.117:8096"; }
-          { key = "k"; desc = "Kavita";      cmd = "${lib.getExe pkgs.ungoogled-chromium} --app=http://100.113.42.117:5000"; }
-          { key = "p"; desc = "Pi-hole";     cmd = "${lib.getExe pkgs.ungoogled-chromium} --app=http://100.113.42.117:8080/admin"; }
-          { key = "s"; desc = "Shoko";       cmd = "${lib.getExe pkgs.ungoogled-chromium} --app=http://100.113.42.117:8111"; }
-          # { key = "m"; desc = "TradingView"; cmd = "${lib.getExe pkgs.ungoogled-chromium} --app=https://tradingview.com"; }
-          # { key = "v"; desc = "VNDB";        cmd = "${lib.getExe pkgs.ungoogled-chromium} --app=https://vndb.org"; }
-          # { key = "y"; desc = "YouTube";   cmd = "${lib.getExe pkgs.ungoogled-chromium} --app=https://youtube.com"; }
-          { key = "b"; desc = "Bluetooth";   cmd = "${lib.getExe pkgs.ungoogled-chromium} ipc call bluetooth togglePanel"; }
-          { key = "q"; desc = "qBittorrent"; cmd = "${lib.getExe pkgs.ungoogled-chromium} --app=http://100.113.42.117:8081"; }
+          (webapp "h" "ChatGPT"     "https://chatgpt.com")
+          (webapp "a" "Claude"      "https://claude.ai/login")
+          (webapp "e" "Email"       "https://webmail.disroot.org/?_task=login")
+          (webapp "g" "Gemini"      "https://gemini.google.com/app")
+          (webapp "d" "JD-2"        "${home}:5800")
+          (webapp "j" "Jellyfin"    "${home}:8096")
+          (webapp "k" "Kavita"      "${home}:5000")
+          (webapp "p" "Pi-hole"     "${home}:8080/admin")
+          (webapp "s" "Shoko"       "${home}:8111")
+          (webapp "q" "qBittorrent" "${home}:8081")
+          { key = "b"; desc = "Bluetooth"; cmd = "${noctalia} ipc call bluetooth togglePanel"; }
         ];
       };
     };

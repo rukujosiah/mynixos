@@ -1,21 +1,27 @@
-{ ... }: {
-  flake.nixosModules.persistance = { lib, config, ... }: {
+{
+  flake.nixosModules.persistance = { config, lib, ... }:
+  let
+    cfg   = config.persistance;
+    entry = lib.types.either lib.types.str lib.types.attrs;
+    mkEntries = description: lib.mkOption {
+      inherit description;
+      type    = lib.types.listOf entry;
+      default = [];
+    };
+  in {
     options.persistance = {
-      # user data — keys, repos, documents
-      data.directories = lib.mkOption {
-        type    = lib.types.listOf (lib.types.either lib.types.str lib.types.attrs);
-        default = [];
-      };
-      # regeneratable state — caches, tool databases, app state
-      # dedicated cache subvolume can be wired in disko.nix later
-      cache.directories = lib.mkOption {
-        type    = lib.types.listOf (lib.types.either lib.types.str lib.types.attrs);
-        default = [];
-      };
+      data.directories = mkEntries
+        "stuff like keys, repos, documents and wtvr irreplaceable user state shit";
+      cache.directories = mkEntries
+        "same volume as data for now (will split here if I'll ever add a dedicated subvolume)";
+      system.directories = mkEntries "absolute system directories to keep";
+      system.files       = mkEntries "absolute system files to keep";
     };
 
-    config.preservation.preserveAt."/persistent".users.nixruuku.directories =
-      config.persistance.data.directories ++
-      config.persistance.cache.directories;
+    config.preservation.preserveAt."/persistent" = {
+      inherit (cfg.system) directories files;
+      users.${config.preferences.user.name}.directories =
+        cfg.data.directories ++ cfg.cache.directories;
+    };
   };
 }
