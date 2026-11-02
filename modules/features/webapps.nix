@@ -34,12 +34,14 @@
           (webapp "a" "Claude"      "https://claude.ai/login")
           (webapp "e" "Email"       "https://webmail.disroot.org/?_task=login")
           (webapp "g" "Gemini"      "https://gemini.google.com/app")
-          (webapp "d" "JD-2"        "${home}:5800")
+          (webapp "t" "JD-2"        "${home}:5800")
           (webapp "j" "Jellyfin"    "${home}:8096")
           (webapp "k" "Kavita"      "${home}:5000")
           (webapp "p" "Pi-hole"     "${home}:8080/admin")
           (webapp "s" "Shoko"       "${home}:8111")
-          (webapp "q" "qBittorrent" "${home}:8081")
+	  (webapp "d" "Deluge"      "${home}:8113")
+	  (webapp "i" "Immich"      "${home}:2283")
+          # (webapp "q" "qBittorrent" "${home}:8081")
           { key = "b"; desc = "Bluetooth"; cmd = "${noctalia} ipc call bluetooth togglePanel"; }
         ];
       };
