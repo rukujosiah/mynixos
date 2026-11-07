@@ -41,6 +41,7 @@
           (webapp "s" "Shoko"       "${home}:8111")
 	  (webapp "d" "Deluge"      "${home}:8113")
 	  (webapp "i" "Immich"      "${home}:2283")
+	  (webapp "n" "Navidrome"   "${home}:4533")
           # (webapp "q" "qBittorrent" "${home}:8081")
           { key = "b"; desc = "Bluetooth"; cmd = "${noctalia} ipc call bluetooth togglePanel"; }
         ];
