@@ -26,6 +26,7 @@
       self.nixosModules.ssh
       self.nixosModules.webapps
       self.nixosModules.gaming
+      self.nixosModules.mt5
       self.nixosModules.telegram
       self.nixosModules.vesktop
       self.nixosModules.fastfetch

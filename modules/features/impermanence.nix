@@ -16,6 +16,7 @@
         ".gnupg"
         "mynixos"
         "Downloads"
+	"Videos"
         ".local/share/keyrings"
       ];
     };

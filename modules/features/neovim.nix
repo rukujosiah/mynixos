@@ -14,6 +14,15 @@
         config_directory = lib.generators.mkLuaInline "vim.fn.stdpath('config')";
         dont_link        = false;
       };
+
+      specs.theme = {
+        data   = pkgs.vimPlugins.gruvbox-nvim;
+        config = ''
+          require("gruvbox").setup({ contrast = "", transparent_mode = true })
+          vim.o.background = "dark"
+          vim.cmd.colorscheme("gruvbox")
+        '';
+      };
     };
   };
 }

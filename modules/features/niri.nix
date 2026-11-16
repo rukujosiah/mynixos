@@ -34,7 +34,7 @@
         window-rules = [
 	  {
 	    matches = [ { "app-id" = "org.gnome.Nautilus"; } ];
-	    "open-floating" = true;
+	    "open-floating" = false;
 	  }
 	  {
 	    matches = [
@@ -44,13 +44,13 @@
 	    "open-floating" = true;
 	  }
 	  {
-	    matches = [ { "app-id" = "firefox"; title = "Picture-in-Picture"; } ];
-	    "open-floating" = true;
-	  }
-	  {
 	    matches = [ { "app-id" = "^Alacritty$"; } ];
 	    # "geometry-corner-radius" = 8.0;
 	    "background-effect"."blur" = true;
+	  }
+	  {
+	    matches = [ { "app-id" = "^terminal64\\.exe$"; } ];
+	    "open-floating" = false;
 	  }
 	];
 
@@ -84,17 +84,19 @@
           "Mod+Ctrl+V".spawn = lib.getExe pkgs.pavucontrol;
 
           # Window management
-          "Mod+W".close-window            = _: {};
-          "Mod+F".maximize-column         = _: {};
-          "Mod+Shift+F".fullscreen-window = _: {};
-          "Mod+O".toggle-overview         = _: {};
-          "Mod+Ctrl+Q".spawn-sh           = "${pkgs.niri}/bin/niri msg action quit --skip-confirmation";
+          "Mod+W".close-window                                   = _: {};
+          "Mod+F".maximize-column                                = _: {};
+          "Mod+Shift+F".fullscreen-window                        = _: {};
+          "Mod+O".toggle-overview                                = _: {};
+	  "Mod+V".toggle-window-floating                         = _: {};
+	  "Mod+Shift+V".switch-focus-between-floating-and-tiling = _: {};
+          "Mod+Ctrl+Q".spawn-sh                                  = "${pkgs.niri}/bin/niri msg action quit --skip-confirmation";
 
           # Focus
-          "Mod+J".focus-window-down    = _: {};
-          "Mod+K".focus-window-up      = _: {};
-          "Mod+Up".focus-window-up     = _: {};
-          "Mod+Down".focus-window-down = _: {};
+          "Mod+J".focus-window-down      = _: {};
+          "Mod+K".focus-window-up        = _: {};
+          "Mod+Up".focus-window-up       = _: {};
+          "Mod+Down".focus-window-down   = _: {};
           "Mod+Left".focus-column-left   = _: {};
           "Mod+Right".focus-column-right = _: {};
 

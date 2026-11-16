@@ -31,6 +31,7 @@
       ".local/share/Steam"
       ".config/lutris"
       ".local/share/lutris"
+      ".local/share/umu"
     ];
   };
 }

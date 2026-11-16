@@ -36,12 +36,14 @@
           (webapp "g" "Gemini"      "https://gemini.google.com/app")
           (webapp "t" "JD-2"        "${home}:5800")
           (webapp "j" "Jellyfin"    "${home}:8096")
-          (webapp "k" "Kavita"      "${home}:5000")
+          (webapp "k" "Komga"       "${home}:8123")
           (webapp "p" "Pi-hole"     "${home}:8080/admin")
           (webapp "s" "Shoko"       "${home}:8111")
 	  (webapp "d" "Deluge"      "${home}:8113")
 	  (webapp "i" "Immich"      "${home}:2283")
 	  (webapp "n" "Navidrome"   "${home}:4533")
+	  (webapp "f" "Fapland"     "${home}:8787")
+	  # (webapp "r" "Roll & Hero" "${home}:8081")
           # (webapp "q" "qBittorrent" "${home}:8081")
           { key = "b"; desc = "Bluetooth"; cmd = "${noctalia} ipc call bluetooth togglePanel"; }
         ];
