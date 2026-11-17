@@ -16,6 +16,7 @@
         ".gnupg"
         "mynixos"
         "Downloads"
+	"Pictures"
 	"Videos"
         ".local/share/keyrings"
       ];

@@ -4,41 +4,13 @@
     user = config.preferences.user.name;
     niri = lib.getExe self.packages.${pkgs.stdenv.hostPlatform.system}.myNiri;
   in {
-    imports = [
-      self.nixosModules.myMachineHardware
-      self.nixosModules.locale
-      self.nixosModules.environment
-      self.nixosModules.pipewire
-      self.nixosModules.chromium
-      self.nixosModules.gimp
-      self.nixosModules.gtk
-      self.nixosModules.fish
-      self.nixosModules.git
-      self.nixosModules.niri
-      self.nixosModules.alacritty
-      self.nixosModules.fuzzel
-      self.nixosModules.qutebrowser
-      self.nixosModules.yazi
-      self.nixosModules.neovim
-      self.nixosModules.mpv
-      self.nixosModules.tailscale
-      self.nixosModules.samba
-      self.nixosModules.ssh
-      self.nixosModules.webapps
-      self.nixosModules.gaming
-      self.nixosModules.mt5
-      self.nixosModules.telegram
-      self.nixosModules.vesktop
-      self.nixosModules.fastfetch
-    ];
-
     boot.loader.systemd-boot.enable      = true;
     boot.loader.efi.canTouchEfiVariables = true;
     boot.kernelPackages                  = pkgs.linuxPackages_latest;
 
     preferences.user.name = "nixruuku";
 
-    networking.hostName              = "FAGGOTTRON3000";
+    networking.hostName              = self.hostName;
     networking.networkmanager.enable = true;
 
     services.greetd = {

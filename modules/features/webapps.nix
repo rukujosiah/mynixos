@@ -30,8 +30,8 @@
         margin_bottom = 5;
 
         menu = [
-          (webapp "h" "ChatGPT"     "https://chatgpt.com")
-          (webapp "a" "Claude"      "https://claude.ai/login")
+          # (webapp "h" "ChatGPT"     "https://chatgpt.com")
+          # (webapp "a" "Claude"      "https://claude.ai/login")
           (webapp "e" "Email"       "https://webmail.disroot.org/?_task=login")
           (webapp "g" "Gemini"      "https://gemini.google.com/app")
           (webapp "t" "JD-2"        "${home}:5800")

@@ -1,4 +1,4 @@
-{ self, inputs, lib, ... }: {
+{ self, inputs, ... }: {
   flake.nixosModules.neovim = { pkgs, ... }: {
     environment.systemPackages = [
       self.packages.${pkgs.stdenv.hostPlatform.system}.myNeovim
@@ -7,7 +7,7 @@
     persistance.cache.directories = [ ".local/share/nvim" ];
   };
 
-  perSystem = { pkgs, ... }: {
+  perSystem = { pkgs, lib, ... }: {
     packages.myNeovim = inputs.wrapper-modules.wrappers.neovim.wrap {
       inherit pkgs;
       settings = {

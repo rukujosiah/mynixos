@@ -6,7 +6,7 @@
     disko.devices = {
       nodev."/" = {
         fsType       = "tmpfs";
-        mountOptions = [ "size=25%" "mode=755" ];
+        mountOptions = [ "size=50%" "mode=755" ];
       };
 
       disk.main = {

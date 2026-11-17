@@ -1,5 +1,5 @@
 { self, inputs, ... }: {
-  flake.nixosModules.niri = { pkgs, lib, ... }: {
+  flake.nixosModules.niri = { pkgs, ... }: {
     programs.niri = {
       enable  = true;
       package = self.packages.${pkgs.stdenv.hostPlatform.system}.myNiri;
@@ -141,13 +141,20 @@
           # Webapp launcher
           "Mod+Shift+D".spawn = lib.getExe self'.packages.myWebapps;
 
-          # Screenshots
-          "Print".spawn-sh =
-            ''${lib.getExe pkgs.grim} -l 0 - | ${pkgs.wl-clipboard}/bin/wl-copy'';
-          "Mod+Shift+S".spawn-sh =
-            ''${lib.getExe pkgs.grim} -g "$(${lib.getExe pkgs.slurp} -w 0)" - | ${pkgs.wl-clipboard}/bin/wl-copy'';
+          # Screenshots: region -> disk + clipboard (Print); focused window -> disk + clipboard (Mod+Shift+Print)
+          "Print".spawn           = lib.getExe self'.packages.myScreenshot;
+          "Mod+Shift+S".spawn     = lib.getExe self'.packages.myScreenshot;
+          "Mod+Shift+Print".spawn-sh = ''
+            dir="$HOME/Pictures"
+            ${pkgs.coreutils}/bin/mkdir -p "$dir"
+            file="$dir/$(${pkgs.coreutils}/bin/date +%Y%m%d-%H%M%S)-window.png"
+            ${lib.getExe pkgs.niri} msg action screenshot-window --path "$file"
+          '';
           "Mod+Shift+E".spawn-sh =
             ''${pkgs.wl-clipboard}/bin/wl-paste | ${lib.getExe pkgs.swappy} -f -'';
+
+          # Screen recording: Mod+R toggles a slurp-selected region -> $HOME/Videos
+          "Mod+R".spawn = lib.getExe self'.packages.myScreenRecord;
 
           # Audio
           "XF86AudioRaiseVolume".spawn-sh = "wpctl set-volume -l 1.4 @DEFAULT_AUDIO_SINK@ 5%+";
